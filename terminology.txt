@@ -1,0 +1,151 @@
+
+
+
+What is a Database?
+A Database is a collection of related information.
+
+
+What is a Database Management System(DBMS)?
+It is a software that helps users to create and maintain databases, it helps users to perform "CRUD": create, read, update and delete.
+
+
+There are two types of Databases:
+1- Relational Databases that store data in tables: each table have columns and rows where each row is identified by a unique id.
+2- Non-Relational Databases that do not store data in tables. There is no common characteristic for the different types of Non-Relational Databases: some may store data in documents, others in graphs, etc.
+
+
+What is Relational Database Management System(RDBMS)?
+It is a software that helps users to create and maintain relational databases.
+RDBMS includes: mySQL, Oracle, postgreSQL, etc.
+
+
+What is Structured Query Language(SQL)?
+It is a standarized language used to interact with RDBMS.
+We use SQL to communicate and give orders to RDBMS, and RDBMS manages the database.
+Although there is a formal specification that defines SQL, each RBDMS implements SQL slightly differently; the concept is the same, but the implementaion is a little bit different; so you may need to tweak your code a little bit to migrate it between different RDBMS.
+SQL is a hybrid language:it is made up of four different mini-languages: 
+1-- DQL(Data Query Language): used to query the database for information that already exist.
+2-- DDL(Data Definition Language): used for defining databases schemas.
+3-- DCL(Data Control Language): Used for user permission management; controls who can access the data in the database.
+4-- DML(Data Manipulation Language): used to insert, update and delete data from the database.
+
+
+What is Non-Relational Database Management System(NRDBMS)?
+It is a software that helps users to create and maintain non-relational databases.
+NRDBMS includes: mongoDB, firebase, etc. Each NRDBMS has its own language.
+
+
+What is a Query?
+It is a request to the DBMS for specific information.
+A Google search is a query.
+
+
+Tables have two parts: rows and columns.
+
+
+A row is a horizontal alignment of data.
+Data in a row contains information that describes a single entity
+
+
+A column is a vertical alignment of data.
+Data in a column describes a field of information all entities possess.
+Students
++----+------+-----+
+| id | name | age |
++----+------+-----+
+| 1  | Tim  | 15  |
++----+------+-----+
+| 2  | Rim  | 16  |
++----+------+-----+
+| 3  | Jim  | 17  |
++----+------+-----+
+
+
+Every table will have a special column known as "The Primary Key".
+A Primary Key is a unique attribute that defines a single row.
+The Primary Key can be an id, email, username, etc.
+Primary Keys can be surrogate or Natural.
+
+
+What is a surrogate key?
+A surrogate key is a random value that identifies a row.
+It has no mapping to the real world.
+
+
+What is a Natural Key?
+Natural key is a meaningful value that identifies a row.
+It has mapping to the real world.
+
+
+What is a Foreign Key?
+A Foreign Key is a column in one table, that refers to the Primary Key in another table. 
+We use it to link the first table to the second one.
+A single table can have multiple columens of foreign key.
+Students
++----+------+-----+--------------+
+| id | name | age | dorm_unit_id |
++----+------+-----+--------------+
+| 1  | Tim  | 22  | 1            |
++----+------+-----+--------------+
+| 2  | Rim  | 24  | 2            |
++----+------+-----+--------------+
+| 3  | Jim  | 26  | 3            |
++----+------+-----+--------------+
+Dorm_Units
++--------------+------------+-------+
+| dorm_unit_id | location   | sq_ft |
++--------------+------------+-------+
+| 1            | building A | 30    |
++--------------+------------+-------+
+| 2            | building B | 42    |
++--------------+------------+-------+
+| 3            | building A | 30    |
++--------------+------------+-------+
+
+
+A foreign key can refer to the same table.
+Students
++----+------+-----+---------------+
+| id | name | age | supervisor_id |
++----+------+-----+---------------+
+| 1  | Tim  | 15  | 2             |
++----+------+-----+---------------+
+| 2  | Rim  | 16  | 1             |
++----+------+-----+---------------+
+| 3  | Jim  | 17  | 1             |
++----+------+-----+---------------+
+Rim supervises Tim and Tim supervises Rim and Jim.
+
+
+What is a composite key?
+A combination of multiple columns, and these columns are used to identify all the rows that are involved.
+Students
++------------+------+-----+
+| student_id | name | age |
++------------+------+-----+
+| 1          | Tim  | 15  |
++------------+------+-----+
+| 2          | Rim  | 16  |
++------------+------+-----+
+| 3          | Jim  | 17  |
++------------+------+-----+
+Teachers
++------------+------+-----+
+| teacher_id | name | age |
++------------+------+-----+
+| 1          | Rob  | 40  |
++------------+------+-----+
+| 2          | Dan  | 26  |
++------------+------+-----+
+| 3          | Cal  | 38  |
++------------+------+-----+
+Studied_Togather
++------------+------------+-------+
+| student_id | teacher_id | hours |
++------------+------------+-------+
+| 2          | 2          | 10    |
++------------+------------+-------+
+| 1          | 3          | 12    |
++------------+------------+-------+
+| 3          | 1          | 14    |
++------------+------------+-------+
