@@ -8,6 +8,8 @@ Basic Commands
 
 
 
+
+
 all sql commands must end with a semicolon
 sql is not case-sensitive, but as a convention: we write all sql reserve words with capital letters
 CREATE database dbName;
