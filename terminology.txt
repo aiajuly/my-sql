@@ -1,6 +1,14 @@
 
 
 
+
+Terminology 
++++++++++++
+
+
+
+
+
 What is a Database?
 A Database is a collection of related information.
 

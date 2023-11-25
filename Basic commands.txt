@@ -1,9 +1,17 @@
 
 
+
+Basic Commands
+++++++++++++++
+
+
+
+
+
 all sql commands must end with a semicolon
 sql is not case-sensitive, but as a convention: we write all sql reserve words with capital letters
-create database dbName;
-show databases;
+CREATE database dbName;
+SHOW databases;
 
 +++++++++++++++++++++++++
 
@@ -96,20 +104,30 @@ Basic queries:
 SELECT *
 FROM student;
 
+limiting:
 SELECT *
 FROM student
 LIMIT 2;
 
+ordering:
 SELECT *
 FROM student
 ORDER BY student_id DESC;
 
-SELECT student.student_name, student.major
+SELECT *
+FROM student
+ORDER BY name, student_id DESC;
+
+specifying:
+SELECT student.name, student.major
 FROM student;
 
+filtering:
 SELECT *
 FROM student
 WHERE name = 'Jack';
+
+you can use <, >, <=, >=, =, <>(not equal), AND, OR 
 
 SELECT *
 FROM student
@@ -118,6 +136,14 @@ WHERE student_id > 2;
 SELECT *
 FROM student
 WHERE major = 'Biology' AND student_id > 1;
+
+in operator:
+SELECT *
+FROM student
+WHERE name IN ('Tim', 'Rim');
+
++++++++++++++++++++++++++
+
 
 
 
