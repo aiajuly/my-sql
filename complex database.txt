@@ -1,0 +1,191 @@
+
+
+
+More Commands
+++++++++++++++
+
+
+
+
+
+
+
+our complex database:
+employee
++--------------+------+--------+--------+---------------+-----------+
+| employees_id | name | gender | salary | supervisor_id | branch_id |
++--------------+------+--------+--------+---------------+-----------+
+| 100          | Rim  | F      | 54,000 | 101           | 1         |   
++--------------+------+--------+--------+---------------+-----------+	
+| 101          | Tim  | M      | 25,000 | 102           | 1         |	
++--------------+------+--------+--------+---------------+-----------+
+| 102          | Jim  | M      | 63,000 | 103           | 2         |
++--------------+------+--------+--------+---------------+-----------+
+| 103          | Kim  | M      | 63,000 | 100           | 3         |
++--------------+------+--------+--------+---------------+-----------+
+branch
++-----------+-------------+------------+
+| branch_id | branch_name | manager_id |
++-----------+-------------+------------+
+| 1         | Ranford     | 100        |      
++-----------+-------------+------------+   
+| 2         | Manford     | 102        |
++-----------+-------------+------------+
+| 3         | Canford     | 103        |
++-----------+-------------+------------+
+client
++-----------+-------------+-----------+
+| cliend_id | client_name | branch_id |
++-----------+-------------+-----------+
+| 1         | Sam         | 3         |   	
++-----------+-------------+-----------+   
+| 2         | Kam         | 2         |
++-----------+-------------+-----------+
+| 3         | Ram         | 3         |
++-----------+-------------+-----------+
+| 4         | Jam         | 1         |
++-----------+-------------+-----------+
+| 5         | Nam         | 2         |
++-----------+-------------+-----------+
+works_with
++-------------+-----------+-------------+
+| empolyee_id | client_id | total_sales |
++-------------+-----------+-------------+
+| 100         | 1         | 12,000      |   
++-------------+-----------+-------------+   
+| 103         | 4         | 15,000      |   
++-------------+-----------+-------------+
+| 100         | 2         | 14,000      |
++-------------+-----------+-------------+
+| 102         | 5         | 13,000      |
++-------------+-----------+-------------+
+| 101         | 3         | 20,000      |
++-------------+-----------+-------------+
+branch_supplier
++-----------+---------------+------------------+
+| branch_id | supplier_name | supply_type      |
++-----------+---------------+------------------+
+| 2         | Ron           | paper            |   
++-----------+---------------+------------------+   
+| 2         | Ton           | writing utensils |   
++-----------+---------------+------------------+
+| 3         | Don           | paper            |
++-----------+---------------+------------------+
+| 2         | Lon           | paper            |
++-----------+---------------+------------------+
+| 1         | Zon           | custom forms     |
++-----------+---------------+------------------+
+
++++++++++++++++++++++++++
+
+two notes:
+1- in the table schema you can't set a column as a foreign key to a refrence that does not exist yet
+2- in a row you you can't set the forgien key attribute if the table that contains the foreign key column has no data inserted to it yet
+
++++++++++++++++++++++++++
+
+lets create our complex database:
+
+creating table schemas:
+
+CREATE TABLE employee(
+    employee_id INT PRIMARY KEY,
+    name VARCHAR(20),
+    gender  VARCHAR(1),
+    salary INT,
+    supervisor_id INT,
+    branch_id INT
+);
+
+CREATE TABLE branch(
+    branch_id INT PRIMARY KEY,
+    branch_name VARCHAR(20),
+    manager_id INT,
+    FOREIGN KEY(manager_id) REFERENCES employee(employee_id) ON DELETE SET NULL
+);
+
+ALTER TABLE employee
+ADD FOREIGN KEY(branch_id)
+REFERENCES branch(branch_id)
+ON DELETE SET NULL;
+
+ALTER TABLE employee
+ADD FOREIGN KEY(supervisor_id)
+REFERENCES employee(employee_id)
+ON DELETE SET NULL;
+
+CREATE TABLE client (
+  client_id INT PRIMARY KEY,
+  client_name VARCHAR(20),
+  branch_id INT,
+  FOREIGN KEY(branch_id) REFERENCES branch(branch_id) ON DELETE SET NULL
+);
+
+CREATE TABLE works_with (
+  employee_id INT,
+  client_id INT,
+  total_sales INT,
+  PRIMARY KEY(employee_id, client_id),
+  FOREIGN KEY(employee_id) REFERENCES employee(employee_id) ON DELETE CASCADE,
+  FOREIGN KEY(client_id) REFERENCES client(client_id) ON DELETE CASCADE
+);
+
+CREATE TABLE branch_supplier (
+  branch_id INT,
+  supplier_name VARCHAR(20),
+  supply_type VARCHAR(40),
+  PRIMARY KEY(branch_id, supplier_name),
+  FOREIGN KEY(branch_id) REFERENCES branch(branch_id) ON DELETE CASCADE
+);
+
+inserting values:
+
+INSERT INTO employee VALUES(100, 'Rim', 'F', '54', NULL, NULL);
+INSERT INTO employee VALUES(101, 'Tim', 'M', '25', NULL, NULL);
+INSERT INTO employee VALUES(102, 'Jim', 'M', '63', NULL, NULL);
+INSERT INTO employee VALUES(103, 'Kim', 'M', '63', NULL, NULL);
+
+INSERT INTO branch VALUES(1, 'Ranford', 100);
+INSERT INTO branch VALUES(2, 'Manford', 102);
+INSERT INTO branch VALUES(3, 'Canford', 103);
+
+UPDATE employee
+SET supervisor_id = 101, branch_id = 1
+WHERE employee_id = 100;
+UPDATE employee
+SET supervisor_id = 102, branch_id = 1
+WHERE employee_id = 101;
+UPDATE employee
+SET supervisor_id = 103, branch_id = 2
+WHERE employee_id = 102;
+UPDATE employee
+SET supervisor_id = 100, branch_id = 3
+WHERE employee_id = 103;
+
+INSERT INTO client values(1, 'Sam', 3);
+INSERT INTO client values(2, 'Kam', 2);
+INSERT INTO client values(3, 'Ram', 3);
+INSERT INTO client values(4, 'Jam', 1);
+INSERT INTO client values(5, 'Nam', 2);
+
+INSERT INTO works_with values(100, 1, 12);
+INSERT INTO works_with values(103, 4, 15);
+INSERT INTO works_with values(100, 2, 14);
+INSERT INTO works_with values(102, 5, 13);
+INSERT INTO works_with values(101, 3, 20);
+
+INSERT INTO branch_supplier values(2, 'Ron', 'paper');
+INSERT INTO branch_supplier values(2, 'Ton', 'writing utensils');
+INSERT INTO branch_supplier values(3, 'Don', 'paper');
+INSERT INTO branch_supplier values(2, 'Lon', 'paper');
+INSERT INTO branch_supplier values(1, 'Zon', 'custom forms');
+
+
+
+
+
+
+
+
+
+
