@@ -84,6 +84,12 @@ two notes:
 
 +++++++++++++++++++++++++
 
+ON DELETE SET NULL means set the foreign key attribute to null when you delete that attribute in the root column
+
+ON DELETE SET CASCADE means delete the foreign key row when you delete that attribute in the root column
+
++++++++++++++++++++++++++
+
 lets create our complex database:
 
 creating table schemas:
@@ -179,13 +185,3 @@ INSERT INTO branch_supplier values(2, 'Ton', 'writing utensils');
 INSERT INTO branch_supplier values(3, 'Don', 'paper');
 INSERT INTO branch_supplier values(2, 'Lon', 'paper');
 INSERT INTO branch_supplier values(1, 'Zon', 'custom forms');
-
-
-
-
-
-
-
-
-
-

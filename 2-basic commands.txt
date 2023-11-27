@@ -12,8 +12,10 @@ Basic Commands
 
 all sql commands must end with a semicolon
 sql is not case-sensitive, but as a convention: we write all sql reserve words with capital letters
+mysql -u root -p
 CREATE database dbName;
 SHOW databases;
+USE dbName;
 
 +++++++++++++++++++++++++
 
@@ -143,12 +145,3 @@ in operator:
 SELECT *
 FROM student
 WHERE name IN ('Tim', 'Rim');
-
-+++++++++++++++++++++++++
-
-
-
-
-
-
-
